@@ -1,4 +1,9 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Http.Headers;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 class Program
 {
@@ -18,6 +23,33 @@ class Program
         KatalogGlowny.WypiszCalyKatalog(true);
         KatalogGlowny.WyszukajPoNazwie("no");
         KatalogGlowny.WypiszCalyKatalog(true);
+
+        LoginRej loginRej = new LoginRej();
+
+        loginRej.Rejestracja("admin", "Aa1!");
+        loginRej.Logowanie("adam", "15");
+        loginRej.Logowanie("admin", "Aa1!");
+
+        KontoUzytkownika admin = loginRej.GetKonto("admin");
+        admin.Info();
+        loginRej.ZmianaHasla("admin","Bb1!");
+        admin.Info();
+        loginRej.ZmianaNazwy("admin", "GIGAdmin");
+        admin.Info();
+
+        admin.KoszykProduktow.DodajDoKoszyka(p1);
+        admin.KoszykProduktow.DodajDoKoszyka(p1);
+        admin.KoszykProduktow.DodajDoKoszyka(p1);
+        admin.KoszykProduktow.DodajDoKoszyka(p2);
+        admin.KoszykProduktow.DodajDoKoszyka(p3);
+        admin.KoszykProduktow.DodajDoKoszyka(p3);
+
+        admin.KoszykProduktow.WyswietlKoszyk();
+
+        admin.KoszykProduktow.UsunZKoszyka(p3);
+
+        admin.KoszykProduktow.WyswietlKoszyk();
+
     }
 }
 
@@ -138,5 +170,233 @@ public class KatalogProduktow
     public void DodajProdukt(Produkt _produkt)
     {
         lista_produktow.Add(_produkt);
+    }
+}
+
+//Konto Uzytkownika
+
+public class KontoUzytkownika
+{
+    private string nazwaKonta;
+    private string haslo;
+    private Koszyk koszykProduktow;
+    // historia zamowien
+    
+    public string NazwaKonta
+    {
+        get { return nazwaKonta; }
+        set { nazwaKonta = value; }
+    }
+
+    public string Haslo
+    {
+        get { return haslo; }
+        set { haslo = value; }
+    }
+
+    public Koszyk KoszykProduktow
+    {
+        get { return koszykProduktow; }
+        set { koszykProduktow = value; }
+    }
+
+    public KontoUzytkownika (string nazwaKonta, string haslo)
+    {
+        NazwaKonta = nazwaKonta;
+        Haslo = haslo;
+        KoszykProduktow = new Koszyk();
+    }
+
+    public void Info()
+    {
+        Console.WriteLine($"nazwa: {NazwaKonta}\nhaslo: {Haslo}");
+    }
+
+}
+
+//Logowanie i Rejestracja
+
+public class LoginRej
+{
+    private List<KontoUzytkownika> uzytkownicy = new List<KontoUzytkownika>();
+
+    public bool WalidacjaHasla(string haslo)
+    {
+        int[] walidacjaHasla = [0, 0, 0, 0];
+        int licznik = 0;
+
+        foreach (char c in haslo)
+        {
+            int hAscii = (int)c;
+
+            if (hAscii > 31 && hAscii < 128)
+            {
+                switch (hAscii)
+                {
+                    case int n when n >= 48 && n <= 57: //cyfry
+                        walidacjaHasla[0]++;
+                        break;
+                    case int n when n >= 65 && n <= 90: //duze litery
+                        walidacjaHasla[1]++;
+                        break;
+                    case int n when n >= 97 && n <= 122: //male litery
+                        walidacjaHasla[2]++;
+                        break;
+                    default: //znaki specjalne
+                        walidacjaHasla[3]++;
+                        break;
+                }
+            }
+        }
+
+        foreach (int i in walidacjaHasla)
+        {
+            if (i > 0)
+            {
+                licznik++;
+            }
+        }
+
+        if (licznik == 4)
+        {
+            return true;
+        }
+        else
+        {
+            Console.WriteLine("Haslo musi zawierac: male lietry, wielkie lietry, cyfry, zanki specjalne");
+            return false;
+        }
+    }
+
+
+    public bool Rejestracja(string nazwaKonta, string haslo)
+    {
+        if (uzytkownicy.Any(u => u.NazwaKonta == nazwaKonta))
+        {
+            Console.WriteLine("Taka nazwa uzytkownika już istnieje");
+            return false;
+        }
+        else
+        {
+            if (WalidacjaHasla(haslo))
+            {
+                uzytkownicy.Add(new KontoUzytkownika(nazwaKonta, haslo));
+                Console.WriteLine("Konto zostało utowzone");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    public bool Logowanie(string nazwaKonta, string haslo)
+    {
+        if (uzytkownicy.Any(u => u.NazwaKonta == nazwaKonta && u.Haslo == haslo))
+        {
+            Console.WriteLine("zalogowano");
+            return true;
+        }
+        else
+        {
+            Console.WriteLine("logowanie nie udane");
+            return false;
+        }
+    }
+
+    public KontoUzytkownika GetKonto (string nazwaKonta)
+    {
+        return uzytkownicy.FirstOrDefault(u => u.NazwaKonta == nazwaKonta);
+    }
+
+    public bool ZmianaNazwy(string staraNazwa, string nowaNazwa)
+    {
+        KontoUzytkownika uzytkownik = GetKonto(staraNazwa);
+
+        if (staraNazwa == nowaNazwa)
+        {
+            Console.WriteLine("Nowa nazwa nie może być taka sama jak poprzednia");
+            return false;
+        }
+
+        if (uzytkownicy.Any(u => u.NazwaKonta == nowaNazwa))
+        {
+            Console.WriteLine("Taki użytkownik już istnieje");
+            return false;
+        }
+
+        if (uzytkownik != null)
+        {
+            uzytkownik.NazwaKonta = nowaNazwa;
+            Console.WriteLine("Nazwa zostala zmieniona");
+            return true;
+        }
+
+        Console.WriteLine("Zmiana sie niepowiodla");
+        return false;
+    }
+
+    public bool ZmianaHasla(string nazwaKonta,string noweHaslo)
+    {
+        KontoUzytkownika uzytkownik = GetKonto(nazwaKonta);
+
+        if (uzytkownik.Haslo == noweHaslo)
+        {
+            Console.WriteLine("Nowe haslo nie moze byc takie samo jak poprzednie");
+            return false;
+        }
+
+        if (WalidacjaHasla(noweHaslo))
+        {
+            uzytkownik.Haslo = noweHaslo;
+            Console.WriteLine("Haslo zostalo zmienione");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+public class Koszyk
+{
+    private List<Produkt> produkty = new List<Produkt>();
+
+    public void DodajDoKoszyka(Produkt produkt)
+    {
+        produkty.Add(produkt);
+    }
+
+    public void UsunZKoszyka(Produkt produkt)
+    {
+        produkty.Remove(produkt);
+    }
+
+    public double Suma()
+    {
+        double suma = 0;
+
+        foreach(var i in produkty)
+        {
+            suma += i._cena;
+        }
+
+        return suma;
+    }
+
+    public void WyswietlKoszyk()
+    {
+        var pogrupowane = produkty
+            .GroupBy(p => p)
+            .Select(g => new { Produkt = g.Key, Ilosc = g.Count() });
+        
+        foreach (var i in pogrupowane)
+        {
+            Console.WriteLine($"{i.Produkt._nazwa} - {i.Ilosc} - {i.Produkt._cena * i.Ilosc}");
+        }
+
+        Console.WriteLine($"łączna kwota to {Suma()}");
     }
 }

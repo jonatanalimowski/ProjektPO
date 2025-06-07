@@ -27,3 +27,18 @@ C:/Users/melon/OneDrive/Desktop/Nowy folder (2)/PO_PROJEKT/ConsoleApp2/obj/Debug
 /Users/kanimod/dev /Projekty_Szkolne/ProjektPO/obj/Debug/net9.0/ConsoleApp2.pdb
 /Users/kanimod/dev /Projekty_Szkolne/ProjektPO/obj/Debug/net9.0/ConsoleApp2.genruntimeconfig.cache
 /Users/kanimod/dev /Projekty_Szkolne/ProjektPO/obj/Debug/net9.0/ref/ConsoleApp2.dll
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.GeneratedMSBuildEditorConfig.editorconfig
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.AssemblyInfoInputs.cache
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.AssemblyInfo.cs
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.csproj.CoreCompileInputs.cache
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.sourcelink.json
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.dll
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\refint\ConsoleApp2.dll
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.pdb
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\bin\Debug\net9.0\ConsoleApp2.exe
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\bin\Debug\net9.0\ConsoleApp2.deps.json
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\bin\Debug\net9.0\ConsoleApp2.runtimeconfig.json
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\bin\Debug\net9.0\ConsoleApp2.dll
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\bin\Debug\net9.0\ConsoleApp2.pdb
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ConsoleApp2.genruntimeconfig.cache
+E:\Kod\studia\semestr_2\c_sharp\ProjektPO\obj\Debug\net9.0\ref\ConsoleApp2.dll
