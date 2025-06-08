@@ -10,14 +10,16 @@ class Program
     static void Main(string[] args)
     {
         KatalogProduktow KatalogGlowny = new KatalogProduktow();
-        Produkt p1 = new Produkt("Pluszaczek", 60.52, "Zabawki", KatalogGlowny);
-        Produkt p2 = new Napoje(true,"plastik","06.06.2030","Koka Kola", 7.99, "Napoje", KatalogGlowny);
-        Produkt p3 = new Produkt("Woda Gazowana", 3.20, "Napoje", KatalogGlowny);
-        Produkt p4 = new Jedzenie(false,true,"09.09.2031","Pierogi", 8.20, "Jedzenie", KatalogGlowny);
-        Produkt p5 = new Produkt("Kotek", 150.25, "Zabawki", KatalogGlowny);
-        Produkt p6 = new Produkt("Swieczka", 3.40, "Bibeloty", KatalogGlowny);
-        Produkt p7 = new Produkt("Durnostójka", 20.20, "Bibeloty", KatalogGlowny);
-        Produkt p8 = new Produkt("GównoTurlak", 69.69, "Dla Dorosłych", KatalogGlowny);
+        Produkt p1 = new Produkt("Pluszaczek", 60.52f, "Zabawki", KatalogGlowny);
+        Produkt p2 = new Napoje(true,"plastik","06.06.2030","Koka Kola", 7.99f, "Napoje", KatalogGlowny);
+        Produkt p3 = new Produkt("Woda Gazowana", 3.20f, "Napoje", KatalogGlowny);
+        Produkt p4 = new Jedzenie(false,true,"09.09.2031","Pierogi", 8.20f, "Jedzenie", KatalogGlowny);
+        Produkt p5 = new Produkt("Kotek", 150.25f, "Zabawki", KatalogGlowny);
+        Produkt p6 = new Produkt("Swieczka", 3.40f, "Bibeloty", KatalogGlowny);
+        Produkt p7 = new Produkt("Durnostójka", 20.20f, "Bibeloty", KatalogGlowny);
+        Produkt p8 = new Produkt("GównoTurlak", 69.69f, "Dla Dorosłych", KatalogGlowny);
+
+
         KatalogGlowny.WypiszCalyKatalog();
         KatalogGlowny.WyszukajPoKategorii("Zabawki");
         KatalogGlowny.WypiszCalyKatalog(true);
@@ -25,7 +27,6 @@ class Program
         KatalogGlowny.WypiszCalyKatalog(true);
 
         LoginRej loginRej = new LoginRej();
-
         loginRej.Rejestracja("admin", "Aa1!");
         loginRej.Logowanie("adam", "15");
         loginRej.Logowanie("admin", "Aa1!");
@@ -36,20 +37,16 @@ class Program
         admin.Info();
         loginRej.ZmianaNazwy("admin", "GIGAdmin");
         admin.Info();
-
         admin.KoszykProduktow.DodajDoKoszyka(p1);
         admin.KoszykProduktow.DodajDoKoszyka(p1);
         admin.KoszykProduktow.DodajDoKoszyka(p1);
         admin.KoszykProduktow.DodajDoKoszyka(p2);
         admin.KoszykProduktow.DodajDoKoszyka(p3);
         admin.KoszykProduktow.DodajDoKoszyka(p3);
-
-        admin.KoszykProduktow.WyswietlKoszyk();
-
+        Console.WriteLine(admin.KoszykProduktow.WyswietlKoszyk());
         admin.KoszykProduktow.UsunZKoszyka(p3);
-
-        admin.KoszykProduktow.WyswietlKoszyk();
-
+        admin.ZakupProdukty();
+        Console.WriteLine(admin.WyswietlHistorie());
     }
 }
 
@@ -59,13 +56,15 @@ class Program
 public class Produkt
 {
     public string _nazwa;
-    public double _cena;
+    public float _cena;
     public string _kategoria;
-    public Produkt(string nazwa, double cena, string kategoria, KatalogProduktow katalog) 
+    public int dostepnosc;
+    public Produkt(string nazwa, float cena, string kategoria, KatalogProduktow katalog) 
     {
         _nazwa = nazwa;
         _cena = cena;
         _kategoria = kategoria;
+        dostepnosc=10;
         katalog.DodajProdukt(this);
     }
     public override string ToString()
@@ -77,7 +76,7 @@ public class Produkt
 // Klasy Dziciczne
 public class Zywnosc : Produkt{
     public string _termin;
-    public Zywnosc(string termin,string nazwa, double cena, string kategoria, KatalogProduktow katalog):base(nazwa,cena,kategoria,katalog){
+    public Zywnosc(string termin,string nazwa, float cena, string kategoria, KatalogProduktow katalog):base(nazwa,cena,kategoria,katalog){
         _termin=termin;
     }
 }
@@ -85,7 +84,7 @@ public class Zywnosc : Produkt{
 public class Napoje : Zywnosc{
     public string _rodzaj_opakowania;
     public bool _gazowane;
-    public Napoje(bool gazowane,string rodzaj_opakowania,string termin,string nazwa, double cena, string kategoria, KatalogProduktow katalog):base(termin,nazwa,cena,kategoria,katalog){
+    public Napoje(bool gazowane,string rodzaj_opakowania,string termin,string nazwa, float cena, string kategoria, KatalogProduktow katalog):base(termin,nazwa,cena,kategoria,katalog){
         _rodzaj_opakowania=rodzaj_opakowania;
         _gazowane=gazowane;
     }
@@ -94,7 +93,7 @@ public class Napoje : Zywnosc{
 public class Jedzenie : Zywnosc{
     public bool _organiczne;
     public bool _bezglutenowe;
-    public Jedzenie(bool organiczne,bool bezglutenowe,string termin,string nazwa, double cena, string kategoria, KatalogProduktow katalog):base(termin,nazwa,cena,kategoria,katalog){
+    public Jedzenie(bool organiczne,bool bezglutenowe,string termin,string nazwa, float cena, string kategoria, KatalogProduktow katalog):base(termin,nazwa,cena,kategoria,katalog){
         _organiczne=organiczne;
         _bezglutenowe=bezglutenowe;
     }
@@ -102,21 +101,21 @@ public class Jedzenie : Zywnosc{
 
 public class Elektronika : Produkt{
     public float _zuzycie_energii;
-    public Elektronika(float zuzycie_energii,string nazwa, double cena, string kategoria, KatalogProduktow katalog):base(nazwa,cena,kategoria,katalog){
+    public Elektronika(float zuzycie_energii,string nazwa, float cena, string kategoria, KatalogProduktow katalog):base(nazwa,cena,kategoria,katalog){
         _zuzycie_energii=zuzycie_energii;
     }
 }
 
 public class Zegary : Elektronika{
     public string _rodzaj;
-    public Zegary(string rodzaj,float zuzycie_energii,string nazwa, double cena, string kategoria, KatalogProduktow katalog):base(zuzycie_energii,nazwa,cena,kategoria,katalog){
+    public Zegary(string rodzaj,float zuzycie_energii,string nazwa, float cena, string kategoria, KatalogProduktow katalog):base(zuzycie_energii,nazwa,cena,kategoria,katalog){
         _rodzaj=rodzaj;
     }
 }
 
 public class Telewizory : Elektronika{
     public float _ile_cali;
-    public Telewizory(float ile_cali,float zuzycie_energii,string nazwa, double cena, string kategoria, KatalogProduktow katalog):base(zuzycie_energii,nazwa,cena,kategoria,katalog){
+    public Telewizory(float ile_cali,float zuzycie_energii,string nazwa, float cena, string kategoria, KatalogProduktow katalog):base(zuzycie_energii,nazwa,cena,kategoria,katalog){
         _ile_cali=ile_cali;
     }
 }
@@ -181,6 +180,8 @@ public class KontoUzytkownika
     private string haslo;
     private Koszyk koszykProduktow;
     // historia zamowien
+    private List<Zamowienie> historiaZamowien;
+
     
     public string NazwaKonta
     {
@@ -205,11 +206,37 @@ public class KontoUzytkownika
         NazwaKonta = nazwaKonta;
         Haslo = haslo;
         KoszykProduktow = new Koszyk();
+        historiaZamowien = new List<Zamowienie>();
     }
 
     public void Info()
     {
         Console.WriteLine($"nazwa: {NazwaKonta}\nhaslo: {Haslo}");
+    }
+
+    public void DodajZamowienie(Zamowienie a){
+        historiaZamowien.Add(a);
+    }
+    public string WyswietlHistorie()
+    {
+        string historia="";
+       foreach(var i in historiaZamowien){
+        historia=historia+i.GenerujPodsumowanie()+"\n";
+       }
+       return historia;
+    }
+
+    public void ZakupProdukty(){
+        string wybor="";
+        Console.WriteLine("Czy dokonac zakupu? - tak lub nie");
+        wybor=Console.ReadLine();
+        if(wybor.ToLower()=="tak"){
+                DodajZamowienie(new Zamowienie (koszykProduktow.PrzekazListy(),(float)koszykProduktow.Suma(),"złozne"));
+                koszykProduktow.WyczyscKoszyk();
+        }else{
+            Console.WriteLine("Przerwano proces wykonywania zakupu");
+        }
+
     }
 
 }
@@ -361,6 +388,7 @@ public class LoginRej
 }
 
 public class Koszyk
+
 {
     private List<Produkt> produkty = new List<Produkt>();
 
@@ -372,6 +400,10 @@ public class Koszyk
     public void UsunZKoszyka(Produkt produkt)
     {
         produkty.Remove(produkt);
+    }
+
+    public void WyczyscKoszyk(){
+        produkty.Clear();
     }
 
     public double Suma()
@@ -386,17 +418,51 @@ public class Koszyk
         return suma;
     }
 
-    public void WyswietlKoszyk()
+    public string WyswietlKoszyk()
     {
+        string lista="";
         var pogrupowane = produkty
             .GroupBy(p => p)
             .Select(g => new { Produkt = g.Key, Ilosc = g.Count() });
         
         foreach (var i in pogrupowane)
         {
-            Console.WriteLine($"{i.Produkt._nazwa} - {i.Ilosc} - {i.Produkt._cena * i.Ilosc}");
+            lista=lista + $"{i.Produkt._nazwa} - {i.Ilosc} - {i.Produkt._cena * i.Ilosc}"+"\n";
         }
 
-        Console.WriteLine($"łączna kwota to {Suma()}");
+        return lista + $"łączna kwota to {Suma().ToString("0.00")}";
     }
+
+    public List<Produkt> PrzekazListy(){
+        return produkty;
+    }
+
 }
+
+public class Zamowienie
+{
+    private List<Produkt> _produkty;
+    
+    private float _cena_laczna;
+    private string _status;
+
+    public Zamowienie(List<Produkt> produkty,float cena_laczna,string status)
+    {
+    _produkty = new List<Produkt>(produkty); 
+    _cena_laczna = cena_laczna;
+    _status = status;
+    } 
+    public string GenerujPodsumowanie()
+    {
+
+        string produktywypis="";
+        foreach(var i in _produkty)
+        {
+            produktywypis=produktywypis+i.ToString()+"\n";
+        }
+        return $"\nStan zamowienia: {_status}\nKupiono:\n{produktywypis}Zapłacono razem: {_cena_laczna}zł";
+    }
+    
+}
+    
+   
