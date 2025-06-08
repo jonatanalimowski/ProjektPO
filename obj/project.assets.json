@@ -8,25 +8,32 @@
     "net9.0": []
   },
   "packageFolders": {
-    "/Users/kanimod/.nuget/packages/": {}
+    "C:\\Users\\Hubert\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/kanimod/dev /Projekty_Szkolne/ProjektPO/ConsoleApp2.csproj",
+      "projectUniqueName": "E:\\Kod\\studia\\semestr_2\\c_sharp\\ProjektPO\\ConsoleApp2.csproj",
       "projectName": "ConsoleApp2",
-      "projectPath": "/Users/kanimod/dev /Projekty_Szkolne/ProjektPO/ConsoleApp2.csproj",
-      "packagesPath": "/Users/kanimod/.nuget/packages/",
-      "outputPath": "/Users/kanimod/dev /Projekty_Szkolne/ProjektPO/obj/",
+      "projectPath": "E:\\Kod\\studia\\semestr_2\\c_sharp\\ProjektPO\\ConsoleApp2.csproj",
+      "packagesPath": "C:\\Users\\Hubert\\.nuget\\packages\\",
+      "outputPath": "E:\\Kod\\studia\\semestr_2\\c_sharp\\ProjektPO\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/kanimod/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Hubert\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -66,7 +73,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

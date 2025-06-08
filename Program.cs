@@ -9,6 +9,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        /*
         KatalogProduktow KatalogGlowny = new KatalogProduktow();
         Produkt p1 = new Produkt("Pluszaczek", 60.52f, "Zabawki", KatalogGlowny);
         Produkt p2 = new Napoje(true,"plastik","06.06.2030","Koka Kola", 7.99f, "Napoje", KatalogGlowny);
@@ -47,6 +48,32 @@ class Program
         admin.KoszykProduktow.UsunZKoszyka(p3);
         admin.ZakupProdukty();
         Console.WriteLine(admin.WyswietlHistorie());
+
+        admin.KoszykProduktow.DodajDoKoszyka(p1);
+        admin.KoszykProduktow.DodajDoKoszyka(p1);
+        admin.ZakupProdukty();
+        Console.WriteLine(admin.WyswietlHistorie());
+        */
+        LoginRej loginRej = new LoginRej();
+
+        KatalogProduktow KatalogGlowny = new KatalogProduktow();
+
+        Produkt p1 = new Produkt("Pluszaczek", 60.52f, "Zabawki", KatalogGlowny);
+        Produkt p2 = new Napoje(true, "plastik", "06.06.2030", "Koka Kola", 7.99f, "Napoje", KatalogGlowny);
+        Produkt p3 = new Produkt("Woda Gazowana", 3.20f, "Napoje", KatalogGlowny);
+        Produkt p4 = new Jedzenie(false, true, "09.09.2031", "Pierogi", 8.20f, "Jedzenie", KatalogGlowny);
+        Produkt p5 = new Produkt("Kotek", 150.25f, "Zabawki", KatalogGlowny);
+        Produkt p6 = new Produkt("Swieczka", 3.40f, "Bibeloty", KatalogGlowny);
+        Produkt p7 = new Produkt("Durnostójka", 20.20f, "Bibeloty", KatalogGlowny);
+        Produkt p8 = new Produkt("GównoTurlak", 69.69f, "Dla Dorosłych", KatalogGlowny);
+
+
+
+        Interfejs ui = new Interfejs(loginRej);
+
+        string konto = ui.LogowanieDoSystemu();
+
+        ui.Operacje(konto, KatalogGlowny);
     }
 }
 
@@ -179,8 +206,8 @@ public class KontoUzytkownika
     private string nazwaKonta;
     private string haslo;
     private Koszyk koszykProduktow;
-    // historia zamowien
     private List<Zamowienie> historiaZamowien;
+    private bool typ; //false - uzytkownik true - admin
 
     
     public string NazwaKonta
@@ -201,12 +228,19 @@ public class KontoUzytkownika
         set { koszykProduktow = value; }
     }
 
-    public KontoUzytkownika (string nazwaKonta, string haslo)
+    public bool Typ
+    {
+        get { return typ; }
+        set { typ = value; }
+    }
+
+    public KontoUzytkownika (string nazwaKonta, string haslo, bool typ)
     {
         NazwaKonta = nazwaKonta;
         Haslo = haslo;
         KoszykProduktow = new Koszyk();
         historiaZamowien = new List<Zamowienie>();
+        Typ = typ;
     }
 
     public void Info()
@@ -220,10 +254,12 @@ public class KontoUzytkownika
     public string WyswietlHistorie()
     {
         string historia="";
-       foreach(var i in historiaZamowien){
-        historia=historia+i.GenerujPodsumowanie()+"\n";
-       }
-       return historia;
+        int licznik = 1;
+        foreach(var i in historiaZamowien){
+            historia=$"{historia}\n{licznik}. {i.GenerujPodsumowanie()} \n";
+            licznik++;
+        }
+        return historia;
     }
 
     public void ZakupProdukty(){
@@ -307,7 +343,7 @@ public class LoginRej
         {
             if (WalidacjaHasla(haslo))
             {
-                uzytkownicy.Add(new KontoUzytkownika(nazwaKonta, haslo));
+                uzytkownicy.Add(new KontoUzytkownika(nazwaKonta, haslo, false));
                 Console.WriteLine("Konto zostało utowzone");
                 return true;
             }
@@ -465,4 +501,153 @@ public class Zamowienie
     
 }
     
-   
+public class Interfejs
+{
+    private LoginRej zarzadKont;
+
+    public LoginRej ZarzadKont
+    {
+        get { return zarzadKont; }
+        set { zarzadKont = value; }
+    }
+
+    public Interfejs(LoginRej zarzadKont)
+    {
+        ZarzadKont = zarzadKont;
+    }
+
+    public string LogowanieDoSystemu()
+    {
+        int logCzyRej = 0;
+        string nazwa = "";
+        string haslo = "";
+        bool sukces = false;
+
+        Console.WriteLine("Witamy W Sklepie Intertowy!!!\n");
+        Console.WriteLine("Zaloguj sie (1)/ Zarejstruj sie (2)/ Wyjdz (3): \n");
+        
+
+        while (!sukces)
+        {
+            logCzyRej = Convert.ToInt32(Console.ReadLine());
+
+            switch (logCzyRej)
+            {
+                case 1:
+                    while (!sukces)
+                    {
+                        Console.WriteLine("Login: ");
+                        nazwa = Console.ReadLine();
+                        Console.WriteLine("Haslo: ");
+                        haslo = Console.ReadLine();
+
+                        sukces = ZarzadKont.Logowanie(nazwa, haslo);
+                    }
+                    break;
+                case 2:
+                    while (!sukces)
+                    {
+                        Console.WriteLine("Login: ");
+                        nazwa = Console.ReadLine();
+                        Console.WriteLine("Haslo: ");
+                        haslo = Console.ReadLine();
+
+                        sukces = ZarzadKont.Rejestracja(nazwa, haslo);
+                    }
+                    break;
+                case 3:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Nie poprawana operacja");
+                    break;
+            }
+        }
+
+        return nazwa;
+    }
+
+    public void Operacje(string nazwa, KatalogProduktow katalog)
+    {
+        KontoUzytkownika uzytkownik = ZarzadKont.GetKonto(nazwa);
+        int operacja = 0;
+        bool zamkij = false;
+
+        while (!zamkij)
+        {
+            Console.WriteLine("Jakiej operacji chcesz dokonac");
+            Console.WriteLine("1 - Przejrzyj Katalog");
+            Console.WriteLine("2 - Dodaj do koszyka");
+            Console.WriteLine("3 - Usun z koszyka");
+            Console.WriteLine("4 - Przejrzyj ksozyk");
+            Console.WriteLine("5 - Zloz zamowienie");
+            Console.WriteLine("6 - Historai Zamowien");
+            Console.WriteLine("7 - Wyloguj sie");
+
+            operacja = Convert.ToInt32(Console.ReadLine());
+
+            switch (operacja)
+            {
+                case 1:
+                    katalog.WypiszCalyKatalog();
+                    break;
+                case 2:
+                    List<Produkt> szukany_add = new List<Produkt>();
+                    string prod_add = "";
+
+                    while (szukany_add.Count == 0)
+                    {
+                        Console.WriteLine("Podaj nazwe produktu");
+                        prod_add = Console.ReadLine();
+
+                        szukany_add = katalog.WyszukajPoNazwie(prod_add);
+                        if (szukany_add.Count == 0)
+                        {
+                            Console.WriteLine("Zla nazwa, sporbuj ponownie");
+                        }
+                    }
+
+                    uzytkownik.KoszykProduktow.DodajDoKoszyka(szukany_add[0]);
+                    szukany_add.Clear();
+                    break;
+                case 3:
+                    List<Produkt> szukany_del = new List<Produkt>();
+                    string prod_del = "";
+
+                    while (szukany_del.Count == 0)
+                    {
+                        Console.WriteLine("Podaj nazwe produktu");
+                        prod_del = Console.ReadLine();
+
+                        szukany_add = katalog.WyszukajPoNazwie(prod_del);
+                        if (szukany_add.Count == 0)
+                        {
+                            Console.WriteLine("Zla nazwa, sporbuj ponownie");
+                        }
+                    }
+
+                    uzytkownik.KoszykProduktow.DodajDoKoszyka(szukany_del[0]);
+                    szukany_del.Clear();
+                    break; ;
+                case 4:
+                    Console.WriteLine(uzytkownik.KoszykProduktow.WyswietlKoszyk());
+                    break;
+                case 5:
+                    uzytkownik.ZakupProdukty();
+                    break;
+                case 6:
+                    Console.WriteLine(uzytkownik.WyswietlHistorie());
+                    break;
+                case 7:
+                    Console.WriteLine("Do zobaczenie");
+                    zamkij = true;
+                    LogowanieDoSystemu();
+                    break;
+                default:
+                    Console.WriteLine("Taka operacja nie istnieje, srpobuj ponownie");
+                    break;
+            }
+        }
+
+    }
+}
