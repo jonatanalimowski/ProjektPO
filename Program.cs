@@ -10,68 +10,24 @@ class Program
 {
     static void Main(string[] args)
     {
-        /*
-        KatalogProduktow KatalogGlowny = new KatalogProduktow();
-        Produkt p1 = new Produkt("Pluszaczek", 60.52f, "Zabawki", KatalogGlowny);
-        Produkt p2 = new Napoje(true,"plastik","06.06.2030","Koka Kola", 7.99f, "Napoje", KatalogGlowny);
-        Produkt p3 = new Produkt("Woda Gazowana", 3.20f, "Napoje", KatalogGlowny);
-        Produkt p4 = new Jedzenie(false,true,"09.09.2031","Pierogi", 8.20f, "Jedzenie", KatalogGlowny);
-        Produkt p5 = new Produkt("Kotek", 150.25f, "Zabawki", KatalogGlowny);
-        Produkt p6 = new Produkt("Swieczka", 3.40f, "Bibeloty", KatalogGlowny);
-        Produkt p7 = new Produkt("Durnostójka", 20.20f, "Bibeloty", KatalogGlowny);
-        Produkt p8 = new Produkt("GównoTurlak", 69.69f, "Dla Dorosłych", KatalogGlowny);
-
-
-        KatalogGlowny.WypiszCalyKatalog();
-        KatalogGlowny.WyszukajPoKategorii("Zabawki");
-        KatalogGlowny.WypiszCalyKatalog(true);
-        KatalogGlowny.WyszukajPoNazwie("no");
-        KatalogGlowny.WypiszCalyKatalog(true);
-
-        LoginRej loginRej = new LoginRej();
-        loginRej.Rejestracja("admin", "Aa1!");
-        loginRej.Logowanie("adam", "15");
-        loginRej.Logowanie("admin", "Aa1!");
-
-        KontoUzytkownika admin = loginRej.GetKonto("admin");
-        admin.Info();
-        loginRej.ZmianaHasla("admin","Bb1!");
-        admin.Info();
-        loginRej.ZmianaNazwy("admin", "GIGAdmin");
-        admin.Info();
-        admin.KoszykProduktow.DodajDoKoszyka(p1);
-        admin.KoszykProduktow.DodajDoKoszyka(p1);
-        admin.KoszykProduktow.DodajDoKoszyka(p1);
-        admin.KoszykProduktow.DodajDoKoszyka(p2);
-        admin.KoszykProduktow.DodajDoKoszyka(p3);
-        admin.KoszykProduktow.DodajDoKoszyka(p3);
-        Console.WriteLine(admin.KoszykProduktow.WyswietlKoszyk());
-        admin.KoszykProduktow.UsunZKoszyka(p3);
-        admin.ZakupProdukty();
-        Console.WriteLine(admin.WyswietlHistorie());
-
-        admin.KoszykProduktow.DodajDoKoszyka(p1);
-        admin.KoszykProduktow.DodajDoKoszyka(p1);
-        admin.ZakupProdukty();
-        Console.WriteLine(admin.WyswietlHistorie());
-        */
         LoginRej loginRej = new LoginRej();
 
         loginRej.Rejestracja("Admin", "Aa1!", true);
         loginRej.Rejestracja("gosc", "Aa1!", false);
+        Console.Clear();
 
         KatalogProduktow KatalogGlowny = new KatalogProduktow();
 
         Produkt p1 = new Produkt("Pluszaczek", 60.52f, "Zabawki", KatalogGlowny, 50);
-        Produkt p2 = new Napoje(true, "plastik", "06.06.2030", "Koka Kola", 7.99f, "Napoje", KatalogGlowny, 50);
-        Produkt p3 = new Produkt("Woda Gazowana", 3.20f, "Napoje", KatalogGlowny ,50);
-        Produkt p4 = new Jedzenie(false, true, "09.09.2031", "Pierogi", 8.20f, "Jedzenie", KatalogGlowny, 50);
-        Produkt p5 = new Produkt("Kotek", 150.25f, "Zabawki", KatalogGlowny, 50);
-        Produkt p6 = new Produkt("Swieczka", 3.40f, "Bibeloty", KatalogGlowny, 50);
-        Produkt p7 = new Produkt("Durnostójka", 20.20f, "Bibeloty", KatalogGlowny, 50);
-        Produkt p8 = new Produkt("GównoTurlak", 69.69f, "Dla Dorosłych", KatalogGlowny, 50);
-
-
+        Produkt p2 = new Produkt("Kotek", 150.25f, "Zabawki", KatalogGlowny, 50);
+        Produkt p3 = new Napoje(true, "puszka", "06.06.2030", "Koka Kola", 7.99f, "Napoje", KatalogGlowny, 50);
+        Produkt p4 = new Napoje(true, "plastik", "23.02.2029" ,"Woda Gazowana", 3.20f, "Napoje", KatalogGlowny ,300); 
+        Produkt p5 = new Jedzenie(false, true, "09.09.2031", "Pierogi", 8.20f, "Jedzenie", KatalogGlowny, 50);
+        Produkt p6 = new Jedzenie(true, false, "12.06.2026", "Chleb", 4.19f, "Jedzenie", KatalogGlowny, 60);
+        Produkt p7 = new Telewizory(33.25f, 3.3f, "Samrt TV", 1775.5f, "Telewizory", KatalogGlowny, 30);
+        Produkt p8 = new Telewizory(60.5f, 5.57f, "ULTRA Samrt TV", 3857.99f, "Telewizory", KatalogGlowny, 30);
+        Produkt p9 = new Zegary("Z Kukulka", 0.3f, "Zegar Vintage Z Kukulka", 90.5f, "Zegary", KatalogGlowny, 15);
+        Produkt p10 = new Zegary("Elektorniczy", 0.1f, "Zegar Elektorniczny", 29.99f, "Zegary", KatalogGlowny, 100);
 
         Interfejs ui = new Interfejs(loginRej);
 
@@ -89,9 +45,6 @@ class Program
     }
 }
 
-// Zaczalem klase Produkt, ale nastepujace rzeczy są temporary do testów:
-// TEMP: Konstruktor + Przeciażenie ToString()
-// Ustawianie katalogu do ktorego nalezy produkt w konstruktorze to fajne rozwiazanie ktore mozna zostawic
 public class Produkt
 {
     public string _nazwa;
@@ -112,7 +65,7 @@ public class Produkt
         return str;
     }
 }
-// Klasy Dziciczne
+
 public class Zywnosc : Produkt{
     public string _termin;
     public Zywnosc(string termin,string nazwa, float cena, string kategoria, KatalogProduktow katalog, int dostepnosc):base(nazwa,cena,kategoria,katalog,dostepnosc)
@@ -163,14 +116,11 @@ public class Telewizory : Elektronika{
     }
 }
 
-//Katalog Produktow
+
 public class KatalogProduktow
 {
     public List<Produkt> lista_produktow = [];
 
-    // lista po filtrowaniu jako zmienna jest po to zeby miec dostep do ostatniego wyniku filtrowania/wyszukiwania
-    // po czasie zauwazylem ze nie jest to najmadrzejsze rozwiazanie ale whatever
-    // zosia: si było niepotzrbne powtorzenie z ta lista produktow po filtrze = lista przeszukana czy tam na odwrot
     public List<Produkt> lista_produktow_po_filtrze = [];
     public List<Produkt> WyszukajPoNazwie(string wyszukiwany_string)
     {
@@ -182,8 +132,6 @@ public class KatalogProduktow
         return lista_produktow_po_filtrze;
     }
 
-    // jesli chodzi o kategorie to nwm mozna zrobic enuma, moze to byc poprostu klasa dziedziczna, moze to byc zmienna
-    // TODO trzeba ustalic co z ta kategoria
     public List<Produkt> WyszukajPoKategorii(string kategoria)
     {
         lista_produktow_po_filtrze.Clear();
@@ -194,14 +142,12 @@ public class KatalogProduktow
         return lista_produktow_po_filtrze;
     }
 
-    // intuicyjne mam nadzieje. Mozna ustalic przy wywolaniu czy chcemy wypisac tylko
-    // wynik ostatniego filtrowania, czy caly katalog
     public void WypiszCalyKatalog(bool wypisz_filtrowana = false)
     {
         List<Produkt> lista_do_wypisania = [];
         if (wypisz_filtrowana) {lista_do_wypisania = lista_produktow_po_filtrze;}
         else {lista_do_wypisania = lista_produktow;}
-        Console.WriteLine(lista_do_wypisania.Count().ToString() + " Produktów!");
+        Console.WriteLine(lista_do_wypisania.Count().ToString() + " Produktow!");
         foreach (var _produkt in lista_do_wypisania)
         {
             Console.WriteLine(_produkt);
@@ -220,8 +166,6 @@ public class KatalogProduktow
     }
 
 }
-
-//Konto Uzytkownika
 
 public class KontoUzytkownika
 {
@@ -267,7 +211,7 @@ public class KontoUzytkownika
 
     public void Info()
     {
-        Console.WriteLine($"nazwa: {NazwaKonta}\nhaslo: {Haslo}");
+        Console.WriteLine($"Nazwa: {NazwaKonta}\nHaslo: {Haslo}");
     }
 
     public void DodajZamowienie(Zamowienie a){
@@ -286,15 +230,23 @@ public class KontoUzytkownika
 
     public void ZakupProdukty(){
         string wybor="";
-        Console.WriteLine("Czy dokonac zakupu? - tak lub nie");
+        List<Produkt> zamownie = koszykProduktow.PrzekazListy();
+        Console.WriteLine("Czy dokonac zakupu? - tak lub nie: ");
         wybor=Console.ReadLine();
         if(wybor.ToLower()=="tak"){
-            DodajZamowienie(new Zamowienie (koszykProduktow.PrzekazListy(),(float)koszykProduktow.Suma(),"złozne"));
-            foreach (var i in koszykProduktow.PrzekazListy())
+            if (zamownie.Count() != 0)
             {
-                i._dostepnosc = i._dostepnosc - 1;
+                DodajZamowienie(new Zamowienie(koszykProduktow.PrzekazListy(), (float)koszykProduktow.Suma(), "złozne"));
+                foreach (var i in koszykProduktow.PrzekazListy())
+                {
+                    i._dostepnosc = i._dostepnosc - 1;
+                }
+                koszykProduktow.WyczyscKoszyk();
             }
-            koszykProduktow.WyczyscKoszyk();
+            else
+            {
+                Console.WriteLine("Koszyk jest pusty");
+            }
         }else{
             Console.WriteLine("Przerwano proces wykonywania zakupu");
         }
@@ -302,8 +254,6 @@ public class KontoUzytkownika
     }
 
 }
-
-//Logowanie i Rejestracja
 
 public class LoginRej
 {
@@ -362,7 +312,7 @@ public class LoginRej
     {
         if (uzytkownicy.Any(u => u.NazwaKonta == nazwaKonta))
         {
-            Console.WriteLine("Taka nazwa uzytkownika już istnieje");
+            Console.WriteLine("Taka nazwa uzytkownika juz istnieje");
             return false;
         }
         else
@@ -384,12 +334,12 @@ public class LoginRej
     {
         if (uzytkownicy.Any(u => u.NazwaKonta == nazwaKonta && u.Haslo == haslo))
         {
-            Console.WriteLine("zalogowano");
+            Console.WriteLine("Zalogowano");
             return true;
         }
         else
         {
-            Console.WriteLine("logowanie nie udane");
+            Console.WriteLine("Logowanie nie udane");
             return false;
         }
     }
@@ -405,13 +355,13 @@ public class LoginRej
 
         if (staraNazwa == nowaNazwa)
         {
-            Console.WriteLine("Nowa nazwa nie może być taka sama jak poprzednia");
+            Console.WriteLine("Nowa nazwa nie moze byc taka sama jak poprzednia");
             return false;
         }
 
         if (uzytkownicy.Any(u => u.NazwaKonta == nowaNazwa))
         {
-            Console.WriteLine("Taki użytkownik już istnieje");
+            Console.WriteLine("Taki uzytkownik juz istnieje");
             return false;
         }
 
@@ -458,7 +408,7 @@ public class Koszyk
     {
         if (produkt._dostepnosc < ilosc)
         {
-            Console.WriteLine("nie mamy tyle produktu w magazynie");
+            Console.WriteLine("Nie mamy tyle produktu w magazynie");
         }
         else
         {
@@ -474,7 +424,7 @@ public class Koszyk
         int ilosc_max = 0;
         int operacja = 0;
 
-        Console.WriteLine("usun wszystkie wystapienia produkut (1)/ usun konkretna ilosc (2): ");
+        Console.WriteLine("Usun wszystkie wystapienia produkut (1)/ Usun konkretna ilosc (2): ");
         operacja = Convert.ToInt32(Console.ReadLine());
 
         var pogrupowane = produkty
@@ -500,7 +450,7 @@ public class Koszyk
             case 2:
                 int ilosc = 0;
 
-                Console.WriteLine("Podaj ile produktow chcesz usunac");
+                Console.WriteLine("Podaj ile produktow chcesz usunac: ");
                 ilosc = Convert.ToInt32(Console.ReadLine());
 
                 if (ilosc <= ilosc_max)
@@ -567,7 +517,6 @@ public class Koszyk
     public List<Produkt> PrzekazListy(){
         return produkty;
     }
-
 }
 
 public class Zamowienie
@@ -585,11 +534,15 @@ public class Zamowienie
     } 
     public string GenerujPodsumowanie()
     {
-
         string produktywypis="";
-        foreach(var i in _produkty)
+
+        var pogrupowane = _produkty
+            .GroupBy(p => p)
+            .Select(g => new { Prod = g.Key, Ilosc = g.Count() });
+
+        foreach(var i in pogrupowane)
         {
-            produktywypis=produktywypis+i.ToString()+"\n";
+            produktywypis = produktywypis + $"{i.Prod._nazwa} - {i.Ilosc} - {i.Prod._cena * i.Ilosc}"+"\n";
         }
         return $"\nStan zamowienia: {_status}\nKupiono:\n{produktywypis}Zapłacono razem: {_cena_laczna}zł";
     }
@@ -654,7 +607,7 @@ public class Interfejs
                     return "3";
                     break;
                 default:
-                    Console.WriteLine("Nie poprawana operacja");
+                    Console.WriteLine("Niepoprawna opercja, srpobuj ponownie");
                     break;
             }
         }
@@ -682,11 +635,40 @@ public class Interfejs
                 Console.WriteLine("7 - Wyloguj sie");
 
                 operacja = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
 
                 switch (operacja)
                 {
                     case 1:
-                        katalog.WypiszCalyKatalog();
+                        string filtr = "";
+                        int opcja = 0;
+
+                        Console.WriteLine("Wyswietl wszsytko (1)/ Szukaj po nazwie (2)/ Szukaj po kategorii (3): ");
+                        opcja = Convert.ToInt32(Console.ReadLine());
+
+                        switch (opcja)
+                        {
+                            case 1:
+                                katalog.WypiszCalyKatalog();
+                                break;
+                            case 2:
+                                Console.WriteLine("Wyszukaj: ");
+                                filtr = Console.ReadLine();
+
+                                katalog.WyszukajPoNazwie(filtr);
+                                katalog.WypiszCalyKatalog(true);
+                                break;
+                            case 3:
+                                Console.WriteLine("Wyszukaj: ");
+                                filtr = Console.ReadLine();
+
+                                katalog.WyszukajPoKategorii(filtr);
+                                katalog.WypiszCalyKatalog(true);
+                                break;
+                            default:
+                                Console.WriteLine("Niepoprawna opercja, srpobuj ponownie");
+                                break;
+                        }
                         break;
                     case 2:
                         List<Produkt> szukany_add = new List<Produkt>();
@@ -695,7 +677,7 @@ public class Interfejs
 
                         while (szukany_add.Count == 0)
                         {
-                            Console.WriteLine("Podaj nazwe produktu");
+                            Console.WriteLine("Podaj nazwe produktu: ");
                             prod_add = Console.ReadLine();
 
                             szukany_add = katalog.WyszukajPoNazwie(prod_add);
@@ -705,7 +687,7 @@ public class Interfejs
                             }
                         }
 
-                        Console.WriteLine("Podaj ilosc produktu");
+                        Console.WriteLine("Podaj ilosc produktu: ");
                         prod_il_add = Convert.ToInt32(Console.ReadLine());
 
 
@@ -718,7 +700,7 @@ public class Interfejs
 
                         while (szukany_del.Count == 0)
                         {
-                            Console.WriteLine("Podaj nazwe produktu");
+                            Console.WriteLine("Podaj nazwe produktu: ");
                             prod_del = Console.ReadLine();
 
                             szukany_del = uzytkownik.KoszykProduktow.WyszukajPoNazwie(prod_del);
@@ -741,11 +723,11 @@ public class Interfejs
                         Console.WriteLine(uzytkownik.WyswietlHistorie());
                         break;
                     case 7:
-                        Console.WriteLine("Do zobaczenie");
+                        Console.WriteLine("Do zobaczenia!");
                         zamkij = true;
                         break;
                     default:
-                        Console.WriteLine("Taka operacja nie istnieje, srpobuj ponownie");
+                        Console.WriteLine("Niepoprawna opercja, srpobuj ponownie");
                         break;
                 }
             }
@@ -764,11 +746,40 @@ public class Interfejs
                 Console.WriteLine("6 - Wyloguj sie");
 
                 operacja = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
 
                 switch (operacja)
                 {
                     case 1:
-                        katalog.WypiszCalyKatalog();
+                        string filtr = "";
+                        int opcja = 0;
+
+                        Console.WriteLine("Wyswietl wszsytko (1)/ Szukaj po nazwie (2)/ Szukaj po kategorii (3): ");
+                        opcja = Convert.ToInt32(Console.ReadLine());
+
+                        switch (opcja)
+                        {
+                            case 1:
+                                katalog.WypiszCalyKatalog();
+                                break;
+                            case 2:
+                                Console.WriteLine("Wyszukaj: ");
+                                filtr = Console.ReadLine();
+
+                                katalog.WyszukajPoNazwie(filtr);
+                                katalog.WypiszCalyKatalog(true);
+                                break;
+                            case 3:
+                                Console.WriteLine("Wyszukaj: ");
+                                filtr = Console.ReadLine();
+
+                                katalog.WyszukajPoKategorii(filtr);
+                                katalog.WypiszCalyKatalog(true);
+                                break;
+                            default:
+                                Console.WriteLine("Niepoprawna opercja, srpobuj ponownie");
+                                break;
+                        }
                         break;
                     case 2:
                         int kategoria = 0;
@@ -885,7 +896,7 @@ public class Interfejs
                                 new Telewizory(ileCali, zuzycieEnergi, nazwa, cena, "Telewizory", katalog, dosteponosc);
                                 break;
                             default:
-                                Console.WriteLine("Niepoprawna operacja");
+                                Console.WriteLine("Niepoprawna opercja, srpobuj ponownie");
                                 break;
                         }
                         break;
@@ -927,13 +938,10 @@ public class Interfejs
                         zamkij = true;
                         break;
                     default:
-                        Console.WriteLine("Taka operacja nie istnieje, srpobuj ponownie");
+                        Console.WriteLine("Niepoprawna opercja, srpobuj ponownie");
                         break;
                 }
             }
-
         }
-    }
-
-        
+    }    
 }
